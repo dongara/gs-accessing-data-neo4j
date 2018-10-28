@@ -4,9 +4,12 @@ package hello;
 import java.util.Arrays;
 import java.util.List;
 
+import org.neo4j.driver.v1.AuthTokens;
+import org.neo4j.driver.v1.Driver;
+import org.neo4j.driver.v1.GraphDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -60,5 +63,4 @@ public class Application {
 					"\t" + personRepository.findByName(person.getName()).toString()));
 		};
 	}
-
 }
