@@ -4,27 +4,30 @@ package hello;
 import java.util.Arrays;
 import java.util.List;
 
-import org.neo4j.driver.v1.AuthTokens;
-import org.neo4j.driver.v1.Driver;
-import org.neo4j.driver.v1.GraphDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 
 @SpringBootApplication
 @EnableNeo4jRepositories
-public class Application {
+public class Application extends SpringBootServletInitializer {
 
 	private final static Logger log = LoggerFactory.getLogger(Application.class);
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(Application.class, args);
 	}
+	
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }
 
 	@Bean
 	CommandLineRunner demo(PersonRepository personRepository) {
@@ -63,4 +66,5 @@ public class Application {
 					"\t" + personRepository.findByName(person.getName()).toString()));
 		};
 	}
+
 }
